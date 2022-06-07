@@ -32,6 +32,10 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ nextWord }),
         });
+        if (response.status == 404) {
+          alert(await response.text());
+          location.reload();
+        }
         if (response.status / 100 !== 2) {
           alert(await response.text());
           return;
