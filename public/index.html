@@ -11,16 +11,8 @@
     <button id="nextWordSendButton">送信</button>
     <script type="module">
       window.onload = async (event) => {
-        await fetch("/shiritori", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nextWord: "りんご" }),
-        });
-
         const response = await fetch("/shiritori");
         const previousWord = await response.text();
-        alert(previousWord);
-
         const para = document.querySelector("#previousWord");
         para.innerText = `前の単語：${previousWord}`;
       };
@@ -32,18 +24,28 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ nextWord }),
         });
-        if (response.status == 404) {
-          alert(await response.text());
-          location.reload();
-        }
         if (response.status / 100 !== 2) {
           alert(await response.text());
+          clearInput();
           return;
         }
-        const previousWord = await response.text();
+
+        let previousWord = await response.text();
+
+        //「ん」が終わったらゲームを終了する
+        if (nextWord.charAt(nextWord.length - 1) === "ん") {
+          alert(await "「ん」が終わったのでゲームを終了する！");
+          previousWord = "しりとり";
+        }
 
         const para = document.querySelector("#previousWord");
         para.innerText = `前の単語：${previousWord}`;
+        clearInput();
+
+        function clearInput() {
+          var text = document.getElementById("nextWordInput");
+          text.value = "";
+        }
       };
     </script>
   </body>

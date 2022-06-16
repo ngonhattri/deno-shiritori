@@ -24,13 +24,11 @@ serve(async (req) => {
       return new Response("前の単語に続いていません。", {
         status: 400,
       });
-    } else if (
-      nextWord.charAt(nextWord.length - 1) == "ん" ||
-      nextWord.charAt(nextWord.length - 1) == "ン"
-    ) {
-      return new Response("ゲームを終了する", {
-        status: 404,
-      });
+    }
+
+    //「ん」が終わったらゲームを終了する
+    if (nextWord.charAt(nextWord.length - 1) == "ん") {
+      return new Response(previousWord);
     }
 
     previousWord = nextWord;
