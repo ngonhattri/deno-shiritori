@@ -26,6 +26,13 @@ serve(async (req) => {
       });
     }
 
+    //ひらがなチェック
+    if (!hiraganaValidate(nextWord)) {
+      return new Response("ひらがなのみで入力してください", {
+        status: 400,
+      });
+    }
+
     //「ん」が終わったらゲームを終了する
     if (nextWord.charAt(nextWord.length - 1) == "ん") {
       return new Response(previousWord);
@@ -42,3 +49,16 @@ serve(async (req) => {
     enableCors: true,
   });
 });
+
+function hiraganaValidate(str) {
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    console.log();
+    //ユニコード表（10進表示）参考：
+    // http://www.tamasoft.co.jp/ja/general-info/unicode-decimal.html
+    if (char < 12353 || char > 12438) {
+      return false;
+    }
+  }
+  return true;
+}
