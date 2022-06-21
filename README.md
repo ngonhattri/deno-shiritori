@@ -1,8 +1,8 @@
 # Webアプリを作成します。フロントエンドは HTML / CSS / JavaScript、バックエンドは JavaScript を使って作成します。
 
-##[Deno Deploy の URL](https://ngonhattri-deno-shiritori.deno.dev/)
+## [Deno Deploy の URL](https://ngonhattri-deno-shiritori.deno.dev/)
 
-###Step 1. Deno のインストール
+### Step 1. Deno のインストール
 
 [DenoのHP](https://deno.land/)
 
@@ -23,12 +23,12 @@ Deno をインストール済みの方は、以下のコマンドを実行して
 ```powershell
 deno upgrade
 ```
-###Step 2. このリポジトリをクローンする
+### Step 2. このリポジトリをクローンする
 
 ```powershell
 $ git clone https://github.com/ngonhattri/deno-shiritori.git
 ```
-###Step 3.実行
+### Step 3.実行
 
 ```powershell
 deno run --allow-net --watch server.js
