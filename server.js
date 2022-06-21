@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.138.0/http/server.ts";
 import { serveDir } from "https://deno.land/std@0.138.0/http/file_server.ts";
 
-let previousWord = "しりとり";
+let previousWord = randomWord();
 
 console.log("Listening onn http://localhost:8000");
 serve(async (req) => {
@@ -35,6 +35,7 @@ serve(async (req) => {
 
     //「ん」が終わったらゲームを終了する
     if (nextWord.charAt(nextWord.length - 1) == "ん") {
+      previousWord = randomWord();
       return new Response(previousWord);
     }
 
@@ -49,6 +50,31 @@ serve(async (req) => {
     enableCors: true,
   });
 });
+
+function randomWord() {
+  const wordBank = [
+    "むずかし",
+    "かさ",
+    "さくら",
+    "たべもの",
+    "くうこう",
+    "りえき",
+    "にほんご",
+    "いか",
+    "さかな",
+    "なす",
+    "うんどう",
+    "しごと",
+    "べんきょう",
+    "すき",
+    "おす",
+    "すし",
+  ];
+  let result = "";
+  result = wordBank[Math.floor(Math.random() * wordBank.length)];
+  console.log(result);
+  return result;
+}
 
 function hiraganaValidate(str) {
   for (let i = 0; i < str.length; i++) {
